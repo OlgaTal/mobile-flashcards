@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
 });
 
 export default function TextButton({children, onPress, style, styleText}) {
-    style = [styles.btn].concat(Array.isArray(style)?style:[style]);
-    styleText = [styles.text].concat(Array.isArray(styleText)?styleText:[styleText]);
+    style = [styles.btn].concat(Array.isArray(style) ? style : [style]);
+    styleText = [styles.text].concat(Array.isArray(styleText) ? styleText : [styleText]);
 
     return (
         <TouchableOpacity onPress={onPress} style={style}>

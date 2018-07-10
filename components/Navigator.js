@@ -5,9 +5,8 @@ import ListDeck from './ListDeck';
 import ShowDeck from './ShowDeck';
 import AddCard from './AddCard';
 import ShowCard from './ShowCard';
-import {getDeck, getDecks, removeDecks, saveDeckTitle} from '../utils/api';
 import {AppLoading, Constants} from 'expo';
-import {purple, red, white} from '../utils/colors';
+import {purple, white} from '../utils/colors';
 import {createMaterialTopTabNavigator, createStackNavigator} from 'react-navigation';
 import {FontAwesome, Ionicons} from '@expo/vector-icons';
 
@@ -22,7 +21,7 @@ const TopNavigator = createMaterialTopTabNavigator({
     AddDeck: {
         screen: AddDeck,
         navigationOptions: {
-            tabBarLabel: 'Add Deck',
+            tabBarLabel: 'NEW DECK',
             // tabBarIcon: ({tintColor}) => <FontAwesome name='home' size={30} color={tintColor}/>
         }
     }
@@ -51,7 +50,6 @@ export const MainNavigator = createStackNavigator({
         screen: TopNavigator,
         navigationOptions: {
             header: null,
-
             headerTintColor: white,
             headerStyle: {
                 height: 0,

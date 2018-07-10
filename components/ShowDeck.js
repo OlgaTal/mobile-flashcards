@@ -5,13 +5,11 @@ import TextButton from './TextButton'
 import {purple} from '../utils/colors'
 
 export default class ShowDeck extends Component {
-
-    addCard = () => {
-        console.log("ShowDeck/add card");
-    };
-
-    startQuiz = () => {
-        console.log("ShowDeck/start quiz")
+    static navigationOptions = ({navigation}) => {
+        const {deck} = navigation.state.params;
+        return {
+            title: deck.title
+        }
     };
 
     render() {

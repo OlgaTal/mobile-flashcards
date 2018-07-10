@@ -2,16 +2,8 @@ import React, {Component} from 'react';
 import {KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import {saveDeckTitle} from '../utils/api';
-import {purple, white} from '../utils/colors';
-
-function SubmitBtn({onPress, style, textStyle}) {
-
-    return (
-        <TouchableOpacity onPress={onPress} style={style}>
-            <Text style={textStyle}>Submit</Text>
-        </TouchableOpacity>
-    )
-}
+import {purple} from '../utils/colors';
+import TextButton from "./TextButton";
 
 export default class AddDeck extends Component {
     state = {title: ''};
@@ -30,10 +22,13 @@ export default class AddDeck extends Component {
             return
         }
 
-        saveDeckTitle(title);
-
-        console.log("AddDeck/submit:", title)
-    }
+        saveDeckTitle(title)
+            .then(deck => {
+                console.log("AddDeck/submit:", deck);
+                // navigate to showDeck
+                this.props.navigation.navigate('ShowDeck', {deck});
+            });
+    };
 
     render() {
 
@@ -50,7 +45,9 @@ export default class AddDeck extends Component {
 
                 </KeyboardAvoidingView>
 
-                <SubmitBtn onPress={this.submit} style={styles.btn} textStyle={styles.text}/>
+                <TextButton onPress={this.submit}>
+                    Submit
+                </TextButton>
             </View>
         )
     }
@@ -71,14 +68,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         padding: 10,
         width: 200
-    },
-    btn: {
-        margin: 5,
-        backgroundColor: purple,
-        padding: 10,
-        borderRadius: 2
-    },
-    text: {
-        color: white
     }
 });

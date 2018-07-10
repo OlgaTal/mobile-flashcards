@@ -19,18 +19,9 @@ export default class ListDeck extends Component {
 
     clearStorage = () => {
         console.log("ListDeck/clearStorage");
-        if (confirm("You are to remove all decks!\nRemove?")) {
-            console.log( "You pressed OK!");
-            // removeDecks();
-            // this.setState({ready: true, decks: {}});
-        } else {
-            console.log("You pressed Cancel!");
-        }
+        removeDecks();
+        this.setState({ready: true, decks: {}});
     };
-
-    addDeck() {
-        alert('add deck!')
-    }
 
     render() {
         const {ready, decks} = this.state;
@@ -45,16 +36,6 @@ export default class ListDeck extends Component {
 
         return (
             <ScrollView style={{flex: 1, marginTop: 1}}>
-                {/*<View style={styles.header}>*/}
-                    {/*<Text style={{color: purple, fontSize: 20}}>Decks</Text>*/}
-                    {/*<TouchableOpacity onPress={() => this.clearStorage()}>*/}
-                        {/*<Entypo name='circle-with-cross' size={30} color={red}/>*/}
-                    {/*</TouchableOpacity>*/}
-                    {/*<TouchableOpacity onPress={() => this.addDeck()}>*/}
-                        {/*<Entypo name='circle-with-plus' size={30} color={purple}/>*/}
-                    {/*</TouchableOpacity>*/}
-                {/*</View>*/}
-
                 <View style={styles.container}>
                     {Object.keys(decks).map((title) => {
                         const deck = decks[title];
@@ -67,6 +48,11 @@ export default class ListDeck extends Component {
                             </TouchableOpacity>
                         )
                     })}
+
+                    <TouchableOpacity key={deck.title} style={[styles.deck, {backgroundColor: red}]}
+                                      onPress={() => this.clearStorage()}>
+                        <Text style={[styles.text, {fontSize: 18}]}>Remove ALL Decks</Text>
+                    </TouchableOpacity>
                 </View>
             </ScrollView>
         )
@@ -74,14 +60,6 @@ export default class ListDeck extends Component {
 }
 
 const styles = StyleSheet.create({
-    header: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginLeft: 20,
-        marginBottom: 10
-    },
     container: {
         flex: 1,
         alignItems: 'stretch',

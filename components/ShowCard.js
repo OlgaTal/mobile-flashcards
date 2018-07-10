@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import TextButton from './TextButton';
-import {orange, purple, red, green} from "../utils/colors";
+import {green, orange, purple, red} from "../utils/colors";
 
 export default class ShowCard extends Component {
     constructor(props) {
@@ -13,6 +13,12 @@ export default class ShowCard extends Component {
             correct: 0
         };
     }
+
+    static navigationOptions = ({navigation}) => {
+        return {
+            title: "Quiz"
+        }
+    };
 
     showQuestion = () => {
         console.log("ShowCard/showQuestion");
@@ -144,11 +150,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         padding: 10,
         width: 250
-    },
-    link: {
-        flex: 1,
-        alignItems: 'center',
-        margin: 120
     },
     qaText: {
         color: red,

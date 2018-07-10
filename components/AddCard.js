@@ -8,6 +8,13 @@ import {purple} from "../utils/colors";
 export default class AddCard extends Component {
     state = {question: '', answer: ''};
 
+    static navigationOptions = ({navigation}) => {
+        const {deck} = navigation.state.params;
+        return {
+            title: deck.title
+        }
+    };
+
     submit = () => {
         const {deck} = this.props.navigation.state.params;
 
@@ -16,8 +23,6 @@ export default class AddCard extends Component {
         console.log("AddCard/submit:", deck.title, this.state.question, this.state.answer);
 
         this.setState({question: '', answer: ''})
-
-        // Clear local notification
     };
 
     render() {
