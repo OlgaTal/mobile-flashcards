@@ -79,8 +79,8 @@ export default class ShowCard extends Component {
         const {deck} = this.props;
         const {cardNum, showAnswer} = this.state;
         const size = !!deck ? deck.questions.length : 0;
-        const question = !!deck && num < deck.questions.length ? deck.questions[num].question : '';
-        const answer = !!deck && num < deck.questions.length ? deck.questions[num].answer : '';
+        const question = !!deck && cardNum < deck.questions.length ? deck.questions[cardNum].question : '';
+        const answer = !!deck && cardNum < deck.questions.length ? deck.questions[cardNum].answer : '';
 
         return (
             <View style={{flex: 1, marginLeft: 10, marginTop: 10}}>
