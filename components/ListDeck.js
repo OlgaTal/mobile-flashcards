@@ -1,8 +1,10 @@
-import React, {Component} from 'react'
-import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native'
-import {Entypo, FontAwesome, Ionicons} from '@expo/vector-icons'
-import {purple, red, white} from '../utils/colors'
+import React, {Component} from 'react';
+import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Entypo, FontAwesome, Ionicons} from '@expo/vector-icons';
+import {AppLoading} from 'expo';
+import {purple, red, white} from '../utils/colors';
 import {getDecks, removeDecks} from "../utils/api";
+import {ShowDeck} from "./ShowDeck";
 
 export default class ListDeck extends Component {
     state = {ready: false, decks: {}};
@@ -26,10 +28,6 @@ export default class ListDeck extends Component {
         }
     };
 
-    selectDeck(deck) {
-        alert(deck)
-    }
-
     addDeck() {
         alert('add deck!')
     }
@@ -46,16 +44,16 @@ export default class ListDeck extends Component {
         }
 
         return (
-            <ScrollView style={{flex: 1}}>
-                <View style={styles.header}>
-                    <Text style={{color: purple, fontSize: 20}}>Decks</Text>
-                    <TouchableOpacity onPress={() => this.clearStorage()}>
-                        <Entypo name='circle-with-cross' size={30} color={red}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.addDeck()}>
-                        <Entypo name='circle-with-plus' size={30} color={purple}/>
-                    </TouchableOpacity>
-                </View>
+            <ScrollView style={{flex: 1, marginTop: 3}}>
+                {/*<View style={styles.header}>*/}
+                    {/*<Text style={{color: purple, fontSize: 20}}>Decks</Text>*/}
+                    {/*<TouchableOpacity onPress={() => this.clearStorage()}>*/}
+                        {/*<Entypo name='circle-with-cross' size={30} color={red}/>*/}
+                    {/*</TouchableOpacity>*/}
+                    {/*<TouchableOpacity onPress={() => this.addDeck()}>*/}
+                        {/*<Entypo name='circle-with-plus' size={30} color={purple}/>*/}
+                    {/*</TouchableOpacity>*/}
+                {/*</View>*/}
 
                 <View style={styles.container}>
                     {Object.keys(decks).map((title) => {
@@ -63,7 +61,7 @@ export default class ListDeck extends Component {
 
                         return (
                             <TouchableOpacity key={deck.title} style={styles.deck}
-                                              onPress={() => this.selectDeck(deck)}>
+                                              onPress={() => this.props.navigation.navigate('ShowDeck', {deck: deck})}>
                                 <Text style={[styles.text, {fontSize: 18}]}>{deck.title}</Text>
                                 <Text style={[styles.text, {fontSize: 14}]}>{deck.questions.length} cards</Text>
                             </TouchableOpacity>

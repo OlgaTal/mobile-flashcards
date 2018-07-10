@@ -7,7 +7,7 @@ import {purple} from '../utils/colors'
 export default class ShowDeck extends Component {
 
     addCard = () => {
-        console.log("ShowDeck/add card")
+        console.log("ShowDeck/add card");
     };
 
     startQuiz = () => {
@@ -15,7 +15,8 @@ export default class ShowDeck extends Component {
     };
 
     render() {
-        const {deck} = this.props;
+        console.log("ShowDeck/render", this.props.navigation.state.params);
+        const {deck} = this.props.navigation.state.params;
         const title = !!deck ? deck.title : '';
         const size = !!deck ? deck.questions.length : 0;
 
@@ -25,11 +26,11 @@ export default class ShowDeck extends Component {
                 <Text style={{color: purple, fontSize: 14}}>{size} cards</Text>
 
                 <View>
-                    <TextButton onPress={this.addCard}>
+                    <TextButton onPress={() => this.props.navigation.navigate('AddCard', {deck: deck})}>
                         Add Card
                     </TextButton>
 
-                    {size > 0 && <TextButton onPress={this.startQuiz}>
+                    {size > 0 && <TextButton onPress={() => this.props.navigation.navigate('ShowCard', {deck: deck})}>
                         Start Quiz
                     </TextButton>}
                 </View>
