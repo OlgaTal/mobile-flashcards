@@ -3,30 +3,68 @@ import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native
 import {Entypo, FontAwesome, Ionicons} from '@expo/vector-icons';
 import {AppLoading} from 'expo';
 import {purple, red, white} from '../utils/colors';
-import {getDecks, removeDecks} from "../utils/api";
+import {getDecks, removeDecks, saveDeck} from "../utils/api";
 import {ShowDeck} from "./ShowDeck";
 
 export default class ListDeck extends Component {
     state = {ready: false, decks: {}};
 
     componentDidMount() {
-        console.log("ListDeck/componentDidMount");
         getDecks().then((decks) => {
             this.setState({ready: true, decks});
-            console.log("App.js/state:", this.state)
         });
     }
 
     clearStorage = () => {
         console.log("ListDeck/clearStorage");
         removeDecks();
-        this.setState({ready: true, decks: {}});
+        // this.setState({ready: true, decks: {}});
+
+        this.initStorage();
+    };
+
+    initStorage = () => {
+        const decks = {
+            React: {
+                title: 'React',
+                questions: [
+                    {
+                        question: 'What is React?',
+                        answer: 'A library for managing user interfaces'
+                    },
+                    {
+                        question: 'Where do you make Ajax requests in React?',
+                        answer: 'The componentDidMount lifecycle event'
+                    }
+                ]
+            },
+            JavaScript: {
+                title: 'JavaScript',
+                questions: [
+                    {
+                        question: 'What is a closure?',
+                        answer: 'The combination of a function and the lexical environment within which that function was declared.'
+                    }
+                ]
+            }
+        };
+
+        {Object.keys(decks).map((title) => {
+            const deck = decks[title];
+
+            saveDeck(deck)
+                .then(deck => {
+                    console.log("AddDeck/saved:", deck);
+                    this.props.navigation.navigate('ShowDeck', {deck});
+                });
+        })}
+        this.setState({ready: true, decks});
     };
 
     render() {
         const {ready, decks} = this.state;
 
-        console.log("ListDeck/render", this.props);
+        console.log("Olga - ListDeck/render - this.props", this.props);
 
         if (ready === false) {
             return <View style={styles.container}>

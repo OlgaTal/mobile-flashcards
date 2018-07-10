@@ -8,10 +8,10 @@ import {purple} from "../utils/colors";
 export default class AddCard extends Component {
     state = {question: '', answer: ''};
 
-    static navigationOptions = ({navigation}) => {
-        const {deck} = navigation.state.params;
+    static navigationOptions = (props) => {
+        console.log('Olga 2 - Add Card/navigationOptions: props', props);
         return {
-            title: deck.title
+            title: 'Add Card'
         }
     };
 
@@ -19,8 +19,6 @@ export default class AddCard extends Component {
         const {deck} = this.props.navigation.state.params;
 
         addCardToDeck(deck.title, {question: this.state.question, answer: this.state.answer});
-
-        console.log("AddCard/submit:", deck.title, this.state.question, this.state.answer);
 
         this.setState({question: '', answer: ''})
     };

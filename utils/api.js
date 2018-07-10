@@ -17,7 +17,10 @@ export function getDeck(title) {
 }
 
 export function saveDeckTitle(title) {
-    const deck = {title, questions: []};
+    return saveDeck({title, questions: []});
+}
+
+export function saveDeck(deck) {
     return AsyncStorage.mergeItem(DECKS_STORAGE_KEY,
         JSON.stringify({
             [title]: deck

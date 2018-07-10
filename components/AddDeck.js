@@ -9,7 +9,7 @@ export default class AddDeck extends Component {
     state = {title: ''};
 
     submit = () => {
-        const {decks} = this.props;
+        const {decks} = this.props.navigation.state.params;
         const {title} = this.state;
 
         if (!title) {
@@ -24,8 +24,6 @@ export default class AddDeck extends Component {
 
         saveDeckTitle(title)
             .then(deck => {
-                console.log("AddDeck/submit:", deck);
-                // navigate to showDeck
                 this.props.navigation.navigate('ShowDeck', {deck});
             });
     };

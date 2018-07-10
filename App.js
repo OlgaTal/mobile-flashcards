@@ -27,8 +27,8 @@ export default class App extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <UdaciStatusBar backgroundColor={purple} barStyle="light-content" />
-                <MainNavigator />
+                <UdaciStatusBar backgroundColor={purple} barStyle="light-content"/>
+                <MainNavigator hello={'HelloWorld'}/>
             </View>
         );
     }
