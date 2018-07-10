@@ -1,11 +1,18 @@
 import React, {Component} from 'react';
-import {Text, TouchableHighlight, View, StyleSheet} from 'react-native';
+import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import TextButton from './TextButton';
-import {purple, white, red} from "../utils/colors";
+import {orange, purple, red} from "../utils/colors";
 
 export default class ShowCard extends Component {
-    state = {showAnswer: false};
+    constructor(props) {
+        super(props);
+        this.state = {
+            showAnswer: false,
+            cardNum: 0,
+            correct: 0
+        };
+    }
 
     showQuestion = () => {
         console.log("ShowCard/showQuestion");
@@ -18,27 +25,66 @@ export default class ShowCard extends Component {
     };
 
     correct = () => {
-        const {deck, num} = this.props;
-        console.log("ShowCard/correct", deck.title, num)
+        const {deck} = this.props;
+        let {cardNum, correct} = this.state;
+        correct++;
+        cardNum++;
+        this.setState({correct, cardNum});
+        console.log("ShowCard/correct", deck.title, correct);
     };
 
     incorrect = () => {
-        const {deck, num} = this.props;
-        console.log("ShowCard/incorrect", deck.title, num)
+        const {deck} = this.props;
+        let {cardNum} = this.state;
+        cardNum++;
+        this.setState({cardNum});
+        console.log("ShowCard/incorrect", deck.title, cardNum)
     };
 
-    render() {
-        const {deck, num} = this.props;
-        console.log("ShowCard/props", this.props);
+    restartQuiz = () => {
+        this.setState({correct: 0, cardNum: 0});
+        console.log("ShowCard/startQuiz");
+    };
 
+    backToDeckView = () => {
+        console.log("ShowCard/backToDeckView");
+    };
+
+    //start the quiz over or go back to the Individual Deck view
+
+    renderScore() {
+        const {deck} = this.props;
         const size = !!deck ? deck.questions.length : 0;
-        const {showAnswer} = this.state;
+        let {correct} = this.state;
+
+        return (
+            <View style={styles.container}>
+                <Text style={styles.score}>Score</Text>
+                <Text style={styles.score}>{correct} / {size}</Text>
+
+                <View>
+                    <TextButton onPress={this.restartQuiz} style={styles.btnCorrect}>
+                        Restart The Quiz
+                    </TextButton>
+
+                    <TextButton onPress={this.backToDeckView} style={styles.btnIncorrect}>
+                        Back To Deck View
+                    </TextButton>
+                </View>
+            </View>
+        )
+    }
+
+    renderCard() {
+        const {deck} = this.props;
+        const {cardNum, showAnswer} = this.state;
+        const size = !!deck ? deck.questions.length : 0;
         const question = !!deck && num < deck.questions.length ? deck.questions[num].question : '';
         const answer = !!deck && num < deck.questions.length ? deck.questions[num].answer : '';
 
         return (
             <View style={{flex: 1, marginLeft: 10, marginTop: 10}}>
-                <Text>{num + 1}/{size}</Text>
+                <Text>{cardNum + 1}/{size}</Text>
 
                 <View style={styles.container}>
                     {!showAnswer && <Text style={[styles.qa, {fontWeight: 'bold'}]}>{question}</Text>}
@@ -67,6 +113,22 @@ export default class ShowCard extends Component {
                     </View>
                 </View>
 
+            </View>
+        )
+    }
+
+    render() {
+        const {deck} = this.props;
+        const {cardNum} = this.state;
+        const size = !!deck ? deck.questions.length : 0;
+        const showScore = size === cardNum;
+
+        console.log("ShowCard/props", this.props);
+
+        return (
+            <View style={{flex: 1, marginLeft: 10, marginTop: 10}}>
+                {showScore && this.renderScore()}
+                {!showScore && this.renderCard()}
             </View>
         )
     }
@@ -110,6 +172,11 @@ const styles = StyleSheet.create({
     },
     qaText: {
         color: red,
+        fontWeight: 'bold',
+        fontSize: 18
+    },
+    score: {
+        color: orange,
         fontWeight: 'bold',
         fontSize: 18
     }
