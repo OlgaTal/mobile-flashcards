@@ -50,8 +50,6 @@ export default class ShowCard extends Component {
         console.log("ShowCard/backToDeckView");
     };
 
-    //start the quiz over or go back to the Individual Deck view
-
     renderScore() {
         const {deck} = this.props;
         const size = !!deck ? deck.questions.length : 0;
@@ -63,11 +61,11 @@ export default class ShowCard extends Component {
                 <Text style={styles.score}>{correct} / {size}</Text>
 
                 <View>
-                    <TextButton onPress={this.restartQuiz} style={styles.btnCorrect}>
+                    <TextButton onPress={this.restartQuiz} style={{color: 'green'}}>
                         Restart The Quiz
                     </TextButton>
 
-                    <TextButton onPress={this.backToDeckView} style={styles.btnIncorrect}>
+                    <TextButton onPress={this.backToDeckView}>
                         Back To Deck View
                     </TextButton>
                 </View>
@@ -103,11 +101,11 @@ export default class ShowCard extends Component {
                     }
 
                     <View>
-                        <TextButton onPress={this.correct} style={styles.btnCorrect}>
+                        <TextButton onPress={this.correct} style={{color: 'green'}}>
                             Correct
                         </TextButton>
 
-                        <TextButton onPress={this.incorrect} style={styles.btnIncorrect}>
+                        <TextButton onPress={this.incorrect} style={{color: red}}>
                             Incorrect
                         </TextButton>
                     </View>
@@ -148,22 +146,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         padding: 10,
         width: 250
-    },
-    btnCorrect: {
-        marginLeft: 20,
-        marginRight: 20,
-        marginBottom: 10,
-        width: 250,
-        padding: 10,
-        alignItems: 'center'
-    },
-    btnIncorrect: {
-        marginLeft: 20,
-        marginRight: 20,
-        marginBottom: 10,
-        width: 250,
-        padding: 10,
-        alignItems: 'center'
     },
     link: {
         flex: 1,

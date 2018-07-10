@@ -24,7 +24,7 @@ export default class ShowDeck extends Component {
                 <Text style={{color: purple, fontSize: 20}}>{title}</Text>
                 <Text style={{color: purple, fontSize: 14}}>{size} cards</Text>
 
-                <View style={styles.buttons}>
+                <View>
                     <TextButton onPress={this.addCard}>
                         Add Card
                     </TextButton>
@@ -53,14 +53,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         padding: 10,
         width: 200
-    },
-    buttons: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginLeft: 20,
-        marginBottom: 10
     }
 });
 

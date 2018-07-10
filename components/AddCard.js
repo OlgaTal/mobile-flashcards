@@ -5,16 +5,6 @@ import {addCardToDeck} from '../utils/api';
 import TextButton from "./TextButton";
 import {purple} from "../utils/colors";
 
-function SubmitBtn({onPress}) {
-
-    return (
-        <TouchableOpacity
-            onPress={onPress}>
-            <Text>Submit</Text>
-        </TouchableOpacity>
-    )
-}
-
 export default class AddCard extends Component {
     state = {question: '', answer: ''};
 
