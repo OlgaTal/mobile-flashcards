@@ -44,7 +44,7 @@ export default class ListDeck extends Component {
         }
 
         return (
-            <ScrollView style={{flex: 1, marginTop: 3}}>
+            <ScrollView style={{flex: 1, marginTop: 1}}>
                 {/*<View style={styles.header}>*/}
                     {/*<Text style={{color: purple, fontSize: 20}}>Decks</Text>*/}
                     {/*<TouchableOpacity onPress={() => this.clearStorage()}>*/}

@@ -9,7 +9,7 @@ export default class AddCard extends Component {
     state = {question: '', answer: ''};
 
     submit = () => {
-        const {deck} = this.props;
+        const {deck} = this.props.navigation.state.params;
 
         addCardToDeck(deck.title, {question: this.state.question, answer: this.state.answer});
 
@@ -59,3 +59,4 @@ const styles = StyleSheet.create({
         width: 200
     }
 });
+

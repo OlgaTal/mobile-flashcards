@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import TextButton from './TextButton';
-import {orange, purple, red} from "../utils/colors";
+import {orange, purple, red, green} from "../utils/colors";
 
 export default class ShowCard extends Component {
     constructor(props) {
@@ -25,7 +25,7 @@ export default class ShowCard extends Component {
     };
 
     correct = () => {
-        const {deck} = this.props;
+        const {deck} = this.props.navigation.state.params;
         let {cardNum, correct} = this.state;
         correct++;
         cardNum++;
@@ -34,7 +34,7 @@ export default class ShowCard extends Component {
     };
 
     incorrect = () => {
-        const {deck} = this.props;
+        const {deck} = this.props.navigation.state.params;
         let {cardNum} = this.state;
         cardNum++;
         this.setState({cardNum});
@@ -51,7 +51,7 @@ export default class ShowCard extends Component {
     };
 
     renderScore() {
-        const {deck} = this.props;
+        const {deck} = this.props.navigation.state.params;
         const size = !!deck ? deck.questions.length : 0;
         let {correct} = this.state;
 
@@ -61,7 +61,7 @@ export default class ShowCard extends Component {
                 <Text style={styles.score}>{correct} / {size}</Text>
 
                 <View>
-                    <TextButton onPress={this.restartQuiz} style={{color: 'green'}}>
+                    <TextButton onPress={this.restartQuiz} style={{backgroundColor: green}}>
                         Restart The Quiz
                     </TextButton>
 
@@ -74,7 +74,7 @@ export default class ShowCard extends Component {
     }
 
     renderCard() {
-        const {deck} = this.props;
+        const {deck} = this.props.navigation.state.params;
         const {cardNum, showAnswer} = this.state;
         const size = !!deck ? deck.questions.length : 0;
         const question = !!deck && cardNum < deck.questions.length ? deck.questions[cardNum].question : '';
@@ -101,11 +101,11 @@ export default class ShowCard extends Component {
                     }
 
                     <View>
-                        <TextButton onPress={this.correct} style={{color: 'green'}}>
+                        <TextButton onPress={this.correct} style={{backgroundColor: green}}>
                             Correct
                         </TextButton>
 
-                        <TextButton onPress={this.incorrect} style={{color: red}}>
+                        <TextButton onPress={this.incorrect} style={{backgroundColor: red}}>
                             Incorrect
                         </TextButton>
                     </View>
@@ -116,12 +116,10 @@ export default class ShowCard extends Component {
     }
 
     render() {
-        const {deck} = this.props;
+        const {deck} = this.props.navigation.state.params;
         const {cardNum} = this.state;
         const size = !!deck ? deck.questions.length : 0;
         const showScore = size === cardNum;
-
-        console.log("ShowCard/props", this.props);
 
         return (
             <View style={{flex: 1, marginLeft: 10, marginTop: 10}}>

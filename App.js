@@ -27,8 +27,8 @@ export default class App extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <UdaciStatusBar backgroundColor={purple} barStyle="light-content"/>
-                <MainNavigator/>
+                <UdaciStatusBar backgroundColor={purple} barStyle="light-content" />
+                <MainNavigator />
             </View>
         );
     }
@@ -37,6 +37,6 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: white
+        backgroundColor: red
     }
 });
