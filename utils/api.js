@@ -5,7 +5,7 @@ const DECKS_STORAGE_KEY = 'DECKS_STORAGE_KEY';
 export function getDecks() {
     return AsyncStorage.getItem(DECKS_STORAGE_KEY)
         .then((results) =>
-            JSON.parse(results)
+            !!results? JSON.parse(results) : {}
         );
 }
 
@@ -23,7 +23,7 @@ export function saveDeckTitle(title) {
 export function saveDeck(deck) {
     return AsyncStorage.mergeItem(DECKS_STORAGE_KEY,
         JSON.stringify({
-            [title]: deck
+            [deck.title]: deck
         }))
         .then(() => deck);
 }

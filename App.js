@@ -28,7 +28,7 @@ export default class App extends React.Component {
         return (
             <View style={styles.container}>
                 <UdaciStatusBar backgroundColor={purple} barStyle="light-content"/>
-                <MainNavigator hello={'HelloWorld'}/>
+                <MainNavigator screenProps={{hello: "HelloWorld"}} />
             </View>
         );
     }
@@ -40,3 +40,4 @@ const styles = StyleSheet.create({
         backgroundColor: red
     }
 });
+

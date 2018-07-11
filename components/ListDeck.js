@@ -15,8 +15,8 @@ export default class ListDeck extends Component {
         });
     }
 
-    clearStorage = () => {
-        console.log("ListDeck/clearStorage");
+    resetStorage = () => {
+        console.log("ListDeck/resetStorage");
         removeDecks();
         // this.setState({ready: true, decks: {}});
 
@@ -51,12 +51,7 @@ export default class ListDeck extends Component {
 
         {Object.keys(decks).map((title) => {
             const deck = decks[title];
-
-            saveDeck(deck)
-                .then(deck => {
-                    console.log("AddDeck/saved:", deck);
-                    this.props.navigation.navigate('ShowDeck', {deck});
-                });
+            saveDeck(deck);
         })}
         this.setState({ready: true, decks});
     };
@@ -64,6 +59,7 @@ export default class ListDeck extends Component {
     render() {
         const {ready, decks} = this.state;
 
+        console.log("Olga - ListDeck/render - this.state", this.state);
         console.log("Olga - ListDeck/render - this.props", this.props);
 
         if (ready === false) {
@@ -87,9 +83,9 @@ export default class ListDeck extends Component {
                         )
                     })}
 
-                    <TouchableOpacity key={deck.title} style={[styles.deck, {backgroundColor: red}]}
-                                      onPress={() => this.clearStorage()}>
-                        <Text style={[styles.text, {fontSize: 18}]}>Remove ALL Decks</Text>
+                    <TouchableOpacity style={[styles.deck, {backgroundColor: red}]}
+                                      onPress={() => this.resetStorage()}>
+                        <Text style={[styles.text, {fontSize: 18}]}>Reset to Defaults</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
@@ -118,4 +114,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     }
 });
+
 

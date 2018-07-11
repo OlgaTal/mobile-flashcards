@@ -9,6 +9,7 @@ export default class AddDeck extends Component {
     state = {title: ''};
 
     submit = () => {
+        //TODO: getDecks
         const {decks} = this.props.navigation.state.params;
         const {title} = this.state;
 
