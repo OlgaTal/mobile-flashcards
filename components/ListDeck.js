@@ -10,24 +10,23 @@ import {receiveDecks, removeDecks, saveDeck} from "../actions";
 import {defaultDecks} from "../utils/_DATA";
 
 class ListDeck extends Component {
-    state = {ready: false, decks: {}};
+    state = {ready: false};
 
     componentDidMount() {
         const {dispatch} = this.props;
         _getDecks()
             .then((decks) => {
                 dispatch(receiveDecks(decks));
-                this.setState({ready: true, decks});
+                this.setState({ready: true});
             });
     }
 
     resetStorage = () => {
         const {dispatch} = this.props;
-        console.log("ListDeck/resetStorage");
         _removeDecks()
             .then(() => {
                 dispatch(removeDecks());
-                // this.setState({ready: true, decks: {}});
+                // this.setState({ready: true});
 
                 this.initStorage();
             });
@@ -40,20 +39,17 @@ class ListDeck extends Component {
             const deck = defaultDecks[title];
             _saveDeck(deck).then((d) => {
                 dispatch(saveDeck(d));
+                //TODO: Promise.All
                 this.setState({
-                    ready: true,
-                    decks: {...this.decks, [d.title]: d}
+                    ready: true
                 });
             });
         })
-
     };
 
     render() {
-        const {ready, decks} = this.state;
-
-        console.log("Olga - ListDeck/render - this.state", this.state);
-        console.log("Olga - ListDeck/render - this.props", this.props);
+        const { ready } = this.state;
+        const { decks } = this.props;
 
         if (ready === false) {
             return <View style={styles.container}>

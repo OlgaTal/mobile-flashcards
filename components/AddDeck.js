@@ -27,6 +27,7 @@ class AddDeck extends Component {
         _saveDeckTitle(title)
             .then((deck) => {
                 dispatch(saveDeck(deck));
+//TODO: set title to ''
                 this.props.navigation.navigate('ShowDeck', {deck});
             });
     };

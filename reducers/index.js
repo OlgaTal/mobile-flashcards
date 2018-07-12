@@ -8,9 +8,13 @@ function decks(state = {}, action) {
                 ...action.decks,
             };
         case SAVE_DECK :
+            console.log("reducers/SAVE_DECK/state:", {
+                ...state,
+                [ action.deck.title ] : action.deck
+            });
             return {
                 ...state,
-                ...action.deck
+                [ action.deck.title ] : action.deck
             };
         case REMOVE_DECKS :
             return {};

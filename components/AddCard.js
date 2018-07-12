@@ -9,7 +9,6 @@ export default class AddCard extends Component {
     state = {question: '', answer: ''};
 
     static navigationOptions = (props) => {
-        console.log('Olga 2 - Add Card/navigationOptions: props', props);
         return {
             title: 'Add Card'
         }

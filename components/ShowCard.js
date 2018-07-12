@@ -21,12 +21,10 @@ export default class ShowCard extends Component {
     };
 
     showQuestion = () => {
-        console.log("ShowCard/showQuestion");
         this.setState({showAnswer: false})
     };
 
     showAnswer = () => {
-        console.log("ShowCard/showAnswer");
         this.setState({showAnswer: true})
     };
 
@@ -36,7 +34,6 @@ export default class ShowCard extends Component {
         correct++;
         cardNum++;
         this.setState({correct, cardNum, showAnswer: false});
-        console.log("ShowCard/correct", deck.title, correct);
     };
 
     incorrect = () => {
@@ -44,12 +41,10 @@ export default class ShowCard extends Component {
         let {cardNum} = this.state;
         cardNum++;
         this.setState({cardNum, showAnswer: false});
-        console.log("ShowCard/incorrect", deck.title, cardNum)
     };
 
     restartQuiz = () => {
         this.setState({correct: 0, cardNum: 0});
-        console.log("ShowCard/startQuiz");
     };
 
     backToDeckView = () => {

@@ -13,7 +13,7 @@ export default class ShowDeck extends Component {
     };
 
     render() {
-        console.log("ShowDeck/render", this.props.navigation.state.params);
+        //console.log("ShowDeck/render", this.props.navigation.state.params);
         const {deck} = this.props.navigation.state.params;
         const title = !!deck ? deck.title : '';
         const size = !!deck ? deck.questions.length : 0;
