@@ -1,59 +1,52 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Entypo, FontAwesome, Ionicons} from '@expo/vector-icons';
 import {AppLoading} from 'expo';
 import {purple, red, white} from '../utils/colors';
-import {getDecks, removeDecks, saveDeck} from "../utils/api";
+import {_getDecks, _removeDecks, _saveDeck} from "../utils/api";
 import {ShowDeck} from "./ShowDeck";
+import {receiveDecks, removeDecks, saveDeck} from "../actions";
+import {defaultDecks} from "../utils/_DATA";
 
-export default class ListDeck extends Component {
+class ListDeck extends Component {
     state = {ready: false, decks: {}};
 
     componentDidMount() {
-        getDecks().then((decks) => {
-            this.setState({ready: true, decks});
-        });
+        const {dispatch} = this.props;
+        _getDecks()
+            .then((decks) => {
+                dispatch(receiveDecks(decks));
+                this.setState({ready: true, decks});
+            });
     }
 
     resetStorage = () => {
+        const {dispatch} = this.props;
         console.log("ListDeck/resetStorage");
-        removeDecks();
-        // this.setState({ready: true, decks: {}});
+        _removeDecks()
+            .then(() => {
+                dispatch(removeDecks());
+                // this.setState({ready: true, decks: {}});
 
-        this.initStorage();
+                this.initStorage();
+            });
     };
 
     initStorage = () => {
-        const decks = {
-            React: {
-                title: 'React',
-                questions: [
-                    {
-                        question: 'What is React?',
-                        answer: 'A library for managing user interfaces'
-                    },
-                    {
-                        question: 'Where do you make Ajax requests in React?',
-                        answer: 'The componentDidMount lifecycle event'
-                    }
-                ]
-            },
-            JavaScript: {
-                title: 'JavaScript',
-                questions: [
-                    {
-                        question: 'What is a closure?',
-                        answer: 'The combination of a function and the lexical environment within which that function was declared.'
-                    }
-                ]
-            }
-        };
+        const {dispatch} = this.props;
 
-        {Object.keys(decks).map((title) => {
-            const deck = decks[title];
-            saveDeck(deck);
-        })}
-        this.setState({ready: true, decks});
+        Object.keys(defaultDecks).map((title) => {
+            const deck = defaultDecks[title];
+            _saveDeck(deck).then((d) => {
+                dispatch(saveDeck(d));
+                this.setState({
+                    ready: true,
+                    decks: {...this.decks, [d.title]: d}
+                });
+            });
+        })
+
     };
 
     render() {
@@ -114,5 +107,15 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     }
 });
+
+function mapStateToProps(decks) {
+    return {
+        decks
+    }
+}
+
+export default connect(
+    mapStateToProps,
+)(ListDeck);
 
 

@@ -1,4 +1,8 @@
 
+yarn add react-redux
+yarn add redux
+
+
 npm i react-navigation --save
 https://stackoverflow.com/questions/47778710/pass-different-parameter-to-each-screen-when-i-use-tabnavigator-react-navigatio
 

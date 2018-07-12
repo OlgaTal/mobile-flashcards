@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {StyleSheet, Text, View} from 'react-native'
 import {Ionicons} from '@expo/vector-icons'
 import TextButton from './TextButton'
-import {purple} from '../utils/colors'
+import {green, purple} from '../utils/colors'
 
 export default class ShowDeck extends Component {
     static navigationOptions = ({navigation}) => {
@@ -24,13 +24,14 @@ export default class ShowDeck extends Component {
                 <Text style={{color: purple, fontSize: 14}}>{size} cards</Text>
 
                 <View>
+                    {size > 0 &&
+                    <TextButton style={{backgroundColor: green}}
+                                onPress={() => this.props.navigation.navigate('ShowCard', {deck: deck})}>
+                        Start Quiz
+                    </TextButton>}
                     <TextButton onPress={() => this.props.navigation.navigate('AddCard', {deck: deck})}>
                         Add Card
                     </TextButton>
-
-                    {size > 0 && <TextButton onPress={() => this.props.navigation.navigate('ShowCard', {deck: deck})}>
-                        Start Quiz
-                    </TextButton>}
                 </View>
             </View>
         )

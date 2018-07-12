@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
-import {saveDeckTitle} from '../utils/api';
+import {_saveDeckTitle} from '../utils/api';
 import {purple} from '../utils/colors';
 import TextButton from "./TextButton";
+import {saveDeck} from "../actions";
 
-export default class AddDeck extends Component {
+class AddDeck extends Component {
     state = {title: ''};
 
     submit = () => {
-        //TODO: getDecks
-        const {decks} = this.props.navigation.state.params;
+        const {decks, dispatch} = this.props;
         const {title} = this.state;
 
         if (!title) {
@@ -23,8 +24,9 @@ export default class AddDeck extends Component {
             return
         }
 
-        saveDeckTitle(title)
-            .then(deck => {
+        _saveDeckTitle(title)
+            .then((deck) => {
+                dispatch(saveDeck(deck));
                 this.props.navigation.navigate('ShowDeck', {deck});
             });
     };
@@ -69,3 +71,13 @@ const styles = StyleSheet.create({
         width: 200
     }
 });
+
+function mapStateToProps(decks) {
+    return {
+        decks
+    }
+}
+
+export default connect(
+    mapStateToProps,
+)(AddDeck);

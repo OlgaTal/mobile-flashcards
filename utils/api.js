@@ -2,25 +2,26 @@ import {AsyncStorage} from 'react-native'
 
 const DECKS_STORAGE_KEY = 'DECKS_STORAGE_KEY';
 
-export function getDecks() {
+export function _getDecks() {
     return AsyncStorage.getItem(DECKS_STORAGE_KEY)
         .then((results) =>
-            !!results? JSON.parse(results) : {}
+            !!results ? JSON.parse(results) : {}
         );
 }
 
-export function getDeck(title) {
-    return AsyncStorage.getItem(DECKS_STORAGE_KEY)
-        .then((results) =>
-            JSON.parse(results)[title]
-        );
+//
+// export function getDeck(title) {
+//     return AsyncStorage.getItem(DECKS_STORAGE_KEY)
+//         .then((results) =>
+//             JSON.parse(results)[title]
+//         );
+// }
+
+export function _saveDeckTitle(title) {
+    return _saveDeck({title, questions: []});
 }
 
-export function saveDeckTitle(title) {
-    return saveDeck({title, questions: []});
-}
-
-export function saveDeck(deck) {
+export function _saveDeck(deck) {
     return AsyncStorage.mergeItem(DECKS_STORAGE_KEY,
         JSON.stringify({
             [deck.title]: deck
@@ -28,7 +29,7 @@ export function saveDeck(deck) {
         .then(() => deck);
 }
 
-export function addCardToDeck(title, card) {
+export function _addCardToDeck(title, card) {
     return AsyncStorage.getItem(DECKS_STORAGE_KEY)
         .then((results) => {
             const deck = JSON.parse(results)[title];
@@ -41,7 +42,7 @@ export function addCardToDeck(title, card) {
         });
 }
 
-export function removeDecks() {
+export function _removeDecks() {
     return AsyncStorage.removeItem(DECKS_STORAGE_KEY)
         .then((results) =>
             JSON.parse(results)

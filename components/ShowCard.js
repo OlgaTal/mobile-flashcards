@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import TextButton from './TextButton';
-import {green, orange, purple, red} from "../utils/colors";
+import {green, purple, red} from "../utils/colors";
 
 export default class ShowCard extends Component {
     constructor(props) {
@@ -35,7 +35,7 @@ export default class ShowCard extends Component {
         let {cardNum, correct} = this.state;
         correct++;
         cardNum++;
-        this.setState({correct, cardNum});
+        this.setState({correct, cardNum, showAnswer: false});
         console.log("ShowCard/correct", deck.title, correct);
     };
 
@@ -43,7 +43,7 @@ export default class ShowCard extends Component {
         const {deck} = this.props.navigation.state.params;
         let {cardNum} = this.state;
         cardNum++;
-        this.setState({cardNum});
+        this.setState({cardNum, showAnswer: false});
         console.log("ShowCard/incorrect", deck.title, cardNum)
     };
 
@@ -154,10 +154,10 @@ const styles = StyleSheet.create({
     qaText: {
         color: red,
         fontWeight: 'bold',
-        fontSize: 18
+        fontSize: 20
     },
     score: {
-        color: orange,
+        color: red,
         fontWeight: 'bold',
         fontSize: 18
     }
