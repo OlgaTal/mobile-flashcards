@@ -6,7 +6,8 @@ import {StatusBar, StyleSheet, View} from 'react-native';
 import {Constants} from 'expo';
 import {purple, red} from './utils/colors';
 import {FontAwesome, Ionicons} from '@expo/vector-icons';
-import {MainNavigator} from "./components/Navigator";
+import {MainNavigator} from './components/Navigator';
+import {setLocalNotification} from './utils/helpers';
 
 function UdaciStatusBar({backgroundColor, ...props}) {
     return (
@@ -17,12 +18,17 @@ function UdaciStatusBar({backgroundColor, ...props}) {
 }
 
 export default class App extends React.Component {
+    componentDidMount() {
+        setLocalNotification();
+    }
+
     render() {
         return (
             <Provider store={createStore(reducer)}>
                 <View style={styles.container}>
                     <UdaciStatusBar backgroundColor={purple} barStyle="light-content"/>
-                    <MainNavigator screenProps={{hello: "HelloWorld"}}/>
+                    <MainNavigator/>
+                    {/*<MainNavigator screenProps={{hello: "HelloWorld"}}/>*/}
                 </View>
             </Provider>
         );
