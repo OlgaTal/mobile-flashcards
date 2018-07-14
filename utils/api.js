@@ -9,6 +9,12 @@ export function _getDecks() {
         );
 }
 
+export function _initDecks(decks) {
+    return AsyncStorage.setItem(DECKS_STORAGE_KEY,
+        JSON.stringify(decks))
+        .then(() => decks);
+}
+
 //
 // export function getDeck(title) {
 //     return AsyncStorage.getItem(DECKS_STORAGE_KEY)

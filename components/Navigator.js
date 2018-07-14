@@ -43,6 +43,8 @@ const TopNavigator = createMaterialTopTabNavigator({
             shadowOpacity: 1
         }
     }
+    // ,
+    // initialRouteName: ListDeck
 });
 
 export const MainNavigator = createStackNavigator({
@@ -84,4 +86,3 @@ export const MainNavigator = createStackNavigator({
         }
     }
 });
-

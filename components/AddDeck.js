@@ -27,13 +27,12 @@ class AddDeck extends Component {
         _saveDeckTitle(title)
             .then((deck) => {
                 dispatch(saveDeck(deck));
-//TODO: set title to ''
+                this.setState({title: ''});
                 this.props.navigation.navigate('ShowDeck', {deck});
             });
     };
 
     render() {
-
         return (
             <View style={styles.container}>
                 <Text style={{color: purple, fontSize: 16}}>What is the title of your new deck?</Text>

@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
-import {StyleSheet, Text, View} from 'react-native'
-import {Ionicons} from '@expo/vector-icons'
-import TextButton from './TextButton'
-import {green, purple} from '../utils/colors'
+import React, {Component} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import {Ionicons} from '@expo/vector-icons';
+import TextButton from './TextButton';
+import {green, purple} from '../utils/colors';
 
 export default class ShowDeck extends Component {
     static navigationOptions = ({navigation}) => {
@@ -13,7 +13,6 @@ export default class ShowDeck extends Component {
     };
 
     render() {
-        //console.log("ShowDeck/render", this.props.navigation.state.params);
         const {deck} = this.props.navigation.state.params;
         const title = !!deck ? deck.title : '';
         const size = !!deck ? deck.questions.length : 0;
@@ -55,4 +54,3 @@ const styles = StyleSheet.create({
         width: 200
     }
 });
-

@@ -4,9 +4,9 @@ import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native
 import {Entypo, FontAwesome, Ionicons} from '@expo/vector-icons';
 import {AppLoading} from 'expo';
 import {purple, red, white} from '../utils/colors';
-import {_getDecks, _removeDecks, _saveDeck} from "../utils/api";
+import {_getDecks, _initDecks, _removeDecks} from "../utils/api";
 import {ShowDeck} from "./ShowDeck";
-import {receiveDecks, removeDecks, saveDeck} from "../actions";
+import {initDecks, receiveDecks, removeDecks} from "../actions";
 import {defaultDecks} from "../utils/_DATA";
 
 class ListDeck extends Component {
@@ -22,34 +22,32 @@ class ListDeck extends Component {
     }
 
     resetStorage = () => {
+        // this.clearDecks();
+        this.initStorage();
+    };
+
+    clearDecks = () => {
         const {dispatch} = this.props;
         _removeDecks()
             .then(() => {
                 dispatch(removeDecks());
-                // this.setState({ready: true});
-
-                this.initStorage();
+                this.setState({ready: true});
             });
     };
 
     initStorage = () => {
         const {dispatch} = this.props;
-
-        Object.keys(defaultDecks).map((title) => {
-            const deck = defaultDecks[title];
-            _saveDeck(deck).then((d) => {
-                dispatch(saveDeck(d));
-                //TODO: Promise.All
-                this.setState({
-                    ready: true
-                });
+        _initDecks(defaultDecks).then((decks) => {
+            dispatch(initDecks(decks));
+            this.setState({
+                ready: true
             });
-        })
+        });
     };
 
     render() {
-        const { ready } = this.state;
-        const { decks } = this.props;
+        const {ready} = this.state;
+        const {decks} = this.props;
 
         if (ready === false) {
             return <View style={styles.container}>
@@ -113,5 +111,3 @@ function mapStateToProps(decks) {
 export default connect(
     mapStateToProps,
 )(ListDeck);
-
-
