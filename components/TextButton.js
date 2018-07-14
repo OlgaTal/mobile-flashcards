@@ -28,4 +28,3 @@ export default function TextButton({children, onPress, style, styleText}) {
         </TouchableOpacity>
     )
 }
-

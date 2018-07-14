@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {KeyboardAvoidingView, StyleSheet, Text, TextInput} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import {_saveEmptyDeck} from '../utils/api';
 import {purple} from '../utils/colors';
 import TextButton from "./TextButton";
 import {saveDeck} from "../actions";
-import {StackActions, NavigationActions} from 'react-navigation';
-import {Alert} from 'react-native';
+import {NavigationActions, StackActions} from 'react-navigation';
 import {showError} from "../utils/helpers";
 
 class AddDeck extends Component {
@@ -63,7 +62,6 @@ class AddDeck extends Component {
                            style={styles.input}
                            onChangeText={(title) => this.setState({title})}
                 />
-
 
                 <TextButton onPress={this.submit}>
                     Submit

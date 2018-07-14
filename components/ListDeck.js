@@ -3,10 +3,10 @@ import {connect} from 'react-redux';
 import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Entypo, FontAwesome, Ionicons} from '@expo/vector-icons';
 import {AppLoading} from 'expo';
-import {purple, red, white} from '../utils/colors';
-import {_getDecks, _initDecks, _removeDecks} from "../utils/api";
 import {ShowDeck} from "./ShowDeck";
 import {initDecks, receiveDecks, removeDecks} from "../actions";
+import {_getDecks, _initDecks, _removeDecks} from "../utils/api";
+import {purple, red, white} from '../utils/colors';
 import {defaultDecks} from "../utils/_DATA";
 
 class ListDeck extends Component {
@@ -21,11 +21,6 @@ class ListDeck extends Component {
             });
     }
 
-    resetStorage = () => {
-        // this.clearDecks();
-        this.initStorage();
-    };
-
     clearDecks = () => {
         const {dispatch} = this.props;
         _removeDecks()
@@ -35,7 +30,7 @@ class ListDeck extends Component {
             });
     };
 
-    initStorage = () => {
+    resetStorage = () => {
         const {dispatch} = this.props;
         _initDecks(defaultDecks).then((decks) => {
             dispatch(initDecks(decks));
@@ -73,6 +68,10 @@ class ListDeck extends Component {
                     <TouchableOpacity style={[styles.deck, {backgroundColor: red}]}
                                       onPress={() => this.resetStorage()}>
                         <Text style={[styles.text, {fontSize: 18}]}>Reset to Defaults</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.deck, {backgroundColor: red}]}
+                                      onPress={() => this.clearDecks()}>
+                        <Text style={[styles.text, {fontSize: 18}]}>Remove All</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>

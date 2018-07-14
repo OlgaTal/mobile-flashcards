@@ -111,7 +111,6 @@ export default class ShowCard extends Component {
                         </TextButton>
                     </View>
                 </View>
-
             </View>
         )
     }

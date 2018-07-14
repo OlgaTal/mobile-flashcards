@@ -1,11 +1,9 @@
 import React from 'react';
-import {KeyboardAvoidingView, Platform, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
 import AddDeck from './AddDeck';
 import ListDeck from './ListDeck';
 import ShowDeck from './ShowDeck';
 import AddCard from './AddCard';
 import ShowCard from './ShowCard';
-import {AppLoading, Constants} from 'expo';
 import {purple, white} from '../utils/colors';
 import {createMaterialTopTabNavigator, createStackNavigator} from 'react-navigation';
 import {FontAwesome, Ionicons} from '@expo/vector-icons';
@@ -43,8 +41,6 @@ const TopNavigator = createMaterialTopTabNavigator({
             shadowOpacity: 1
         }
     }
-    // ,
-    // initialRouteName: ListDeck
 });
 
 export const MainNavigator = createStackNavigator({
