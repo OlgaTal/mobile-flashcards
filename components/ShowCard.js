@@ -3,6 +3,7 @@ import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import TextButton from './TextButton';
 import {green, purple, red} from "../utils/colors";
+import {getDailyReminderValue, clearLocalNotification, setLocalNotification} from '../utils/helpers'
 
 export default class ShowCard extends Component {
     constructor(props) {
@@ -28,11 +29,20 @@ export default class ShowCard extends Component {
         this.setState({showAnswer: true})
     };
 
+    resetNotification = (nextCardNum, deckLength) => {
+        if (nextCardNum === deckLength) {
+            console.log('notification reset');
+            clearLocalNotification()
+                .then(setLocalNotification);
+        }
+    };
+
     correct = () => {
         const {deck} = this.props.navigation.state.params;
         let {cardNum, correct} = this.state;
         correct++;
         cardNum++;
+        this.resetNotification(cardNum, deck.questions.length);
         this.setState({correct, cardNum, showAnswer: false});
     };
 
@@ -40,6 +50,7 @@ export default class ShowCard extends Component {
         const {deck} = this.props.navigation.state.params;
         let {cardNum} = this.state;
         cardNum++;
+        this.resetNotification(cardNum, deck.questions.length);
         this.setState({cardNum, showAnswer: false});
     };
 
