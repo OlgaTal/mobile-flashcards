@@ -9,7 +9,7 @@ import ShowDeck from './components/ShowDeck';
 import AddCard from './components/AddCard';
 import ShowCard from './components/ShowCard';
 import FlexboxExamples from './components/FlexboxExamples';
-import {_getDecks, _saveDeckTitle, _removeDecks} from './utils/api';
+import {_getDecks, _saveEmptyDeck, _removeDecks} from './utils/api';
 import {AppLoading} from 'expo';
 import {purple, red, white} from './utils/colors';
 import {Constants} from 'expo';

@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import PropTypes from "prop-types";
 import {StyleSheet, Text, View} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import TextButton from './TextButton';
 import {green, purple} from '../utils/colors';
 
-export default class ShowDeck extends Component {
+class ShowDeck extends Component {
     static navigationOptions = ({navigation}) => {
         const {deck} = navigation.state.params;
         return {
@@ -37,6 +39,22 @@ export default class ShowDeck extends Component {
     }
 }
 
+ShowDeck.propTypes = {
+    deck: PropTypes.shape({
+        title: PropTypes.string.isRequired
+    })
+};
+
+function mapStateToProps(decks, {navigation}) {
+    return {
+        deck: navigation.state.params.deck
+    };
+}
+
+export default connect(
+    mapStateToProps,
+)(ShowDeck);
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -54,3 +72,4 @@ const styles = StyleSheet.create({
         width: 200
     }
 });
+

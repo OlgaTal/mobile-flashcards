@@ -23,7 +23,7 @@ export function _initDecks(decks) {
 //         );
 // }
 
-export function _saveDeckTitle(title) {
+export function _saveEmptyDeck(title) {
     return _saveDeck({title, questions: []});
 }
 
@@ -39,12 +39,14 @@ export function _addCardToDeck(title, card) {
     return AsyncStorage.getItem(DECKS_STORAGE_KEY)
         .then((results) => {
             const deck = JSON.parse(results)[title];
+            const newDeck = {
+                ...deck,
+                questions: deck["questions"].concat([card])
+            };
             AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
-                [title]: {
-                    ...deck,
-                    questions: deck["questions"].concat([card])
-                }
-            }))
+                [title]: newDeck
+            }));
+            return newDeck;
         });
 }
 

@@ -48,7 +48,7 @@ export default class ShowCard extends Component {
     };
 
     backToDeckView = () => {
-        console.log("ShowCard/backToDeckView");
+        this.props.navigation.navigate('ListDeck');
     };
 
     renderScore() {

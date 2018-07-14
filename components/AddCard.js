@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
-import {KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity} from 'react-native';
+import {KeyboardAvoidingView, StyleSheet, TextInput} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import {_addCardToDeck} from '../utils/api';
 import TextButton from "./TextButton";
 import {purple} from "../utils/colors";
-import {addCard, addCardToDeck} from "../actions";
+import {addCardToDeck} from "../actions";
 
 class AddCard extends Component {
     state = {question: '', answer: ''};
@@ -21,10 +21,9 @@ class AddCard extends Component {
         const {deck, dispatch} = this.props;
         const card = {question: this.state.question, answer: this.state.answer};
         _addCardToDeck(deck.title, card)
-            .then(() => {
-                dispatch(addCardToDeck(deck.title, card));
-                // this.setState({question: '', answer: ''});
-                this.props.navigation.navigate('ShowDeck', {deck: deck});
+            .then((d) => {
+                dispatch(addCardToDeck(d.title, card));
+                this.props.navigation.navigate('ShowDeck', {deck: d});
             });
     };
 
@@ -74,13 +73,12 @@ AddCard.propTypes = {
     })
 };
 
-function mapStateToProps(decks, {deck}) {
+function mapStateToProps(decks, {navigation}) {
     return {
-        deck
+        deck: navigation.state.params.deck
     };
 }
 
 export default connect(
     mapStateToProps,
 )(AddCard);
-

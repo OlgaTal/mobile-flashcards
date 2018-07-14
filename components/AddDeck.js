@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
-import {_saveDeckTitle} from '../utils/api';
+import {_saveEmptyDeck} from '../utils/api';
 import {purple} from '../utils/colors';
 import TextButton from "./TextButton";
 import {saveDeck} from "../actions";
@@ -24,7 +24,7 @@ class AddDeck extends Component {
             return
         }
 
-        _saveDeckTitle(title)
+        _saveEmptyDeck(title)
             .then((deck) => {
                 dispatch(saveDeck(deck));
                 this.setState({title: ''});
