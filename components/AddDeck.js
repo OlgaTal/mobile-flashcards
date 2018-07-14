@@ -6,6 +6,7 @@ import {_saveEmptyDeck} from '../utils/api';
 import {purple} from '../utils/colors';
 import TextButton from "./TextButton";
 import {saveDeck} from "../actions";
+import {StackActions, NavigationActions} from 'react-navigation';
 
 class AddDeck extends Component {
     state = {title: ''};
@@ -24,11 +25,31 @@ class AddDeck extends Component {
             return
         }
 
+
         _saveEmptyDeck(title)
             .then((deck) => {
                 dispatch(saveDeck(deck));
                 this.setState({title: ''});
-                this.props.navigation.navigate('ShowDeck', {deck});
+                this.props.navigation.dispatch(StackActions.reset({
+                    index: 1,
+                    actions: [
+                        NavigationActions.navigate({
+                            routeName: 'Home',
+                            action: NavigationActions.navigate({
+                                routeName: 'Home',
+                            })
+                        }),
+                        NavigationActions.navigate({
+                            routeName: 'ShowDeck',
+                            params: {deck},
+                            action: NavigationActions.navigate({
+                                routeName: 'ShowDeck',
+                                params: {deck}
+                            })
+                        }),
+                    ]
+                }));
+                //this.props.navigation.navigate('ShowDeck', {deck});
             });
     };
 
