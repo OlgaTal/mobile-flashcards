@@ -7,6 +7,8 @@ import {purple} from '../utils/colors';
 import TextButton from "./TextButton";
 import {saveDeck} from "../actions";
 import {StackActions, NavigationActions} from 'react-navigation';
+import {Alert} from 'react-native';
+import {showError} from "../utils/helpers";
 
 class AddDeck extends Component {
     state = {title: ''};
@@ -16,15 +18,14 @@ class AddDeck extends Component {
         const {title} = this.state;
 
         if (!title) {
-            alert('The title is empty!!');
-            return
+            showError('The title is empty!');
+            return;
         }
 
         if (!!decks[title]) {
-            alert('The title already exists!!');
-            return
+            showError('The title already exists!');
+            return;
         }
-
 
         _saveEmptyDeck(title)
             .then((deck) => {
@@ -49,28 +50,25 @@ class AddDeck extends Component {
                         }),
                     ]
                 }));
-                //this.props.navigation.navigate('ShowDeck', {deck});
             });
     };
 
     render() {
         return (
-            <View style={styles.container}>
+            <KeyboardAvoidingView behavior='padding' style={styles.container}>
                 <Text style={{color: purple, fontSize: 16}}>What is the title of your new deck?</Text>
 
-                <KeyboardAvoidingView behavior='padding'>
 
-                    <TextInput placeholder='Deck Title'
-                               style={styles.input}
-                               onChangeText={(title) => this.setState({title})}
-                    />
+                <TextInput placeholder='Deck Title'
+                           style={styles.input}
+                           onChangeText={(title) => this.setState({title})}
+                />
 
-                </KeyboardAvoidingView>
 
                 <TextButton onPress={this.submit}>
                     Submit
                 </TextButton>
-            </View>
+            </KeyboardAvoidingView>
         )
     }
 }
@@ -102,3 +100,4 @@ function mapStateToProps(decks) {
 export default connect(
     mapStateToProps,
 )(AddDeck);
+

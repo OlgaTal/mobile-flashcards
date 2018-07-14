@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
-import {KeyboardAvoidingView, StyleSheet, TextInput} from 'react-native';
+import {Alert, KeyboardAvoidingView, StyleSheet, TextInput} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import {_addCardToDeck} from '../utils/api';
 import TextButton from "./TextButton";
 import {purple} from "../utils/colors";
 import {addCardToDeck} from "../actions";
+import {showError} from "../utils/helpers";
 
 class AddCard extends Component {
     state = {question: '', answer: ''};
@@ -19,6 +20,17 @@ class AddCard extends Component {
 
     submit = () => {
         const {deck, dispatch} = this.props;
+
+        if(!this.state.question) {
+            showError('The question is empty!');
+            return;
+        }
+
+        if(!this.state.answer) {
+            showError('The answer is empty!');
+            return;
+        }
+
         const card = {question: this.state.question, answer: this.state.answer};
         _addCardToDeck(deck.title, card)
             .then((d) => {

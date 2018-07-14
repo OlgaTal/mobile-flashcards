@@ -21,8 +21,10 @@ class ShowDeck extends Component {
 
         return (
             <View style={styles.container}>
-                <Text style={{color: purple, fontSize: 20}}>{title}</Text>
-                <Text style={{color: purple, fontSize: 14}}>{size} cards</Text>
+                <View>
+                    <Text style={{color: purple, fontSize: 20}}>{title}</Text>
+                    <Text style={{color: purple, fontSize: 14}}>{size} cards</Text>
+                </View>
 
                 <View>
                     {size > 0 &&
