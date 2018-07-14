@@ -21,7 +21,10 @@ function decks(state = {}, action) {
         case ADD_CARD :
             return {
                 ...state,
-                [action.title]: state[action.title].questions.push(action.card)
+                [action.title]: {
+                    ...state[action.title],
+                    questions: state[action.title].questions.concat([action.card])
+                }
             };
         default :
             return state;
