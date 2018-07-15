@@ -61,6 +61,7 @@ class ListDeck extends Component {
     _onPress = (deck) => {
         let opa = this.getOpacity(deck.title);
         let tsize = this.getTSize(deck.title);
+        const duration = 250;
 
         Animated.sequence([
             Animated.parallel([
@@ -68,14 +69,14 @@ class ListDeck extends Component {
                     opa,
                     {
                         toValue: 0.5,
-                        duration: 500,
+                        duration,
                     }
                 ),
                 Animated.timing(
                     tsize,
                     {
                         toValue: 24,
-                        duration: 500,
+                        duration,
                     }
                 )]),
             Animated.parallel([
@@ -83,18 +84,18 @@ class ListDeck extends Component {
                     opa,
                     {
                         toValue: 1,
-                        duration: 500,
+                        duration,
                     }
                 ),
                 Animated.timing(
                     tsize,
                     {
                         toValue: 18,
-                        duration: 500,
+                        duration,
                     }
                 ),
             ])]).start();
-        setTimeout(() => this.navigate(deck), 1000)
+        setTimeout(() => this.navigate(deck), 2 * duration)
     };
 
     navigate = (deck) => {
