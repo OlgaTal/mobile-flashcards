@@ -20,6 +20,11 @@ export function timeToString(time = Date.now()) {
     return todayUTC.toISOString().split('T')[0];
 }
 
+export function clearLocalNotification() {
+    return AsyncStorage.removeItem(NOTIFICATION_KEY)
+        .then(Notifications.cancelAllScheduledNotificationsAsync)
+}
+
 function createNotification() {
     console.log("createNotification");
     return {

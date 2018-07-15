@@ -3,7 +3,7 @@ import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import TextButton from './TextButton';
 import {green, purple, red} from "../utils/colors";
-import {getDailyReminderValue, clearLocalNotification, setLocalNotification} from '../utils/helpers'
+import {clearLocalNotification, setLocalNotification} from '../utils/helpers'
 
 export default class ShowCard extends Component {
     constructor(props) {

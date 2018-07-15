@@ -1,23 +1,29 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Animated, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Entypo, FontAwesome, Ionicons} from '@expo/vector-icons';
 import {AppLoading} from 'expo';
-import {ShowDeck} from "./ShowDeck";
 import {initDecks, receiveDecks, removeDecks} from "../actions";
 import {_getDecks, _initDecks, _removeDecks} from "../utils/api";
 import {purple, red, white} from '../utils/colors';
 import {defaultDecks} from "../utils/_DATA";
 
 class ListDeck extends Component {
-    state = {ready: false};
+    state = {ready: false, opacity: {}, tsize: {}};
 
     componentDidMount() {
         const {dispatch} = this.props;
         _getDecks()
             .then((decks) => {
                 dispatch(receiveDecks(decks));
-                this.setState({ready: true});
+
+                let opacity = {};
+                let tsize = {};
+                Object.keys(decks).map((title) => {
+                    opacity[title] = new Animated.Value(1);
+                    tsize[title] = new Animated.Value(18);
+                });
+                this.setState({ready: true, opacity: opacity, tsize: tsize});
             });
     }
 
@@ -26,7 +32,7 @@ class ListDeck extends Component {
         _removeDecks()
             .then(() => {
                 dispatch(removeDecks());
-                this.setState({ready: true});
+                this.setState({ready: true, opacity: {}, tsize: {}});
             });
     };
 
@@ -34,10 +40,65 @@ class ListDeck extends Component {
         const {dispatch} = this.props;
         _initDecks(defaultDecks).then((decks) => {
             dispatch(initDecks(decks));
-            this.setState({
-                ready: true
+            let opacity = {};
+            let tsize = {};
+            Object.keys(decks).map((title) => {
+                opacity[title] = new Animated.Value(1);
+                tsize[title] = new Animated.Value(18);
             });
+            this.setState({ready: true, opacity: opacity, tsize: tsize});
         });
+    };
+
+    getOpacity = (title) => {
+        return this.state.opacity[title];
+    };
+
+    getTSize = (title) => {
+        return this.state.tsize[title];
+    };
+
+    _onPress = (deck) => {
+        let opa = this.getOpacity(deck.title);
+        let tsize = this.getTSize(deck.title);
+
+        Animated.sequence([
+            Animated.parallel([
+                Animated.timing(
+                    opa,
+                    {
+                        toValue: 0.5,
+                        duration: 500,
+                    }
+                ),
+                Animated.timing(
+                    tsize,
+                    {
+                        toValue: 24,
+                        duration: 500,
+                    }
+                )]),
+            Animated.parallel([
+                Animated.timing(
+                    opa,
+                    {
+                        toValue: 1,
+                        duration: 500,
+                    }
+                ),
+                Animated.timing(
+                    tsize,
+                    {
+                        toValue: 18,
+                        duration: 500,
+                    }
+                ),
+            ])]).start();
+        setTimeout(() => this.navigate(deck), 1000)
+    };
+
+    navigate = (deck) => {
+        this.props.navigation.navigate('ShowDeck', {deck: deck})
     };
 
     render() {
@@ -57,11 +118,14 @@ class ListDeck extends Component {
                         const deck = decks[title];
 
                         return (
-                            <TouchableOpacity key={deck.title} style={styles.deck}
-                                              onPress={() => this.props.navigation.navigate('ShowDeck', {deck: deck})}>
-                                <Text style={[styles.text, {fontSize: 18}]}>{deck.title}</Text>
-                                <Text style={[styles.text, {fontSize: 14}]}>{deck.questions.length} cards</Text>
-                            </TouchableOpacity>
+                            <Animated.View key={deck.title} style={{opacity: this.getOpacity(deck.title)}}>
+                                <TouchableOpacity style={styles.deck}
+                                                  onPress={() => this._onPress(deck)}>
+                                    <Animated.Text
+                                        style={[styles.text, {fontSize: this.getTSize(deck.title)}]}>{deck.title}</Animated.Text>
+                                    <Text style={[styles.text, {fontSize: 14}]}>{deck.questions.length} cards</Text>
+                                </TouchableOpacity>
+                            </Animated.View>
                         )
                     })}
 
@@ -110,3 +174,4 @@ function mapStateToProps(decks) {
 export default connect(
     mapStateToProps,
 )(ListDeck);
+
