@@ -12,15 +12,13 @@ const TopNavigator = createMaterialTopTabNavigator({
     ListDeck: {
         screen: ListDeck,
         navigationOptions: {
-            tabBarLabel: 'DECKS',
-            // tabBarIcon: ({tintColor}) => <FontAwesome name='home' size={30} color={tintColor}/>
+            tabBarLabel: 'DECKS'
         }
     },
     AddDeck: {
         screen: AddDeck,
         navigationOptions: {
-            tabBarLabel: 'NEW DECK',
-            // tabBarIcon: ({tintColor}) => <FontAwesome name='home' size={30} color={tintColor}/>
+            tabBarLabel: 'NEW DECK'
         }
     }
 }, {
@@ -66,6 +64,7 @@ export const MainNavigator = createStackNavigator({
     AddCard: {
         screen: AddCard,
         navigationOptions: {
+            title: 'Add Card',
             headerTintColor: white,
             headerStyle: {
                 backgroundColor: purple,
@@ -75,6 +74,7 @@ export const MainNavigator = createStackNavigator({
     ShowCard: {
         screen: ShowCard,
         navigationOptions: {
+            title: "Quiz",
             headerTintColor: white,
             headerStyle: {
                 backgroundColor: purple,

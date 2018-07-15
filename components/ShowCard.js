@@ -15,12 +15,6 @@ export default class ShowCard extends Component {
         };
     }
 
-    static navigationOptions = ({navigation}) => {
-        return {
-            title: "Quiz"
-        }
-    };
-
     showQuestion = () => {
         this.setState({showAnswer: false})
     };

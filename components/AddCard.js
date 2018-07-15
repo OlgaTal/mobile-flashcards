@@ -12,12 +12,6 @@ import {purple} from "../utils/colors";
 class AddCard extends Component {
     state = {question: '', answer: ''};
 
-    static navigationOptions = (props) => {
-        return {
-            title: 'Add Card'
-        }
-    };
-
     submit = () => {
         const {deck, dispatch} = this.props;
 
