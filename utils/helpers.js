@@ -26,7 +26,6 @@ export function clearLocalNotification() {
 }
 
 function createNotification() {
-    console.log("createNotification");
     return {
         title: 'Do your quiz!',
         body: "👋 don't forget to do your quiz today!",
@@ -43,18 +42,13 @@ function createNotification() {
 }
 
 export function setLocalNotification() {
-    console.log("setLocalNotification 1");
     AsyncStorage.getItem(NOTIFICATION_KEY)
         .then(JSON.parse)
         .then((data) => {
-            console.log("setLocalNotification 2");
             if (data === null) {
-                console.log("setLocalNotification 3");
                 Permissions.askAsync(Permissions.NOTIFICATIONS)
                     .then(({status}) => {
-                        console.log("setLocalNotification 4");
                         if (status === 'granted') {
-                            console.log("setLocalNotification 5");
                             Notifications.cancelAllScheduledNotificationsAsync();
 
                             let tomorrow = new Date();
@@ -69,11 +63,9 @@ export function setLocalNotification() {
                                     repeat: 'day',
                                 }
                             );
-                            console.log("setLocalNotification 6");
                             AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
                         }
                     })
             }
         })
 }
-

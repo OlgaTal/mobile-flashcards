@@ -65,35 +65,11 @@ class ListDeck extends Component {
 
         Animated.sequence([
             Animated.parallel([
-                Animated.timing(
-                    opa,
-                    {
-                        toValue: 0.5,
-                        duration,
-                    }
-                ),
-                Animated.timing(
-                    tsize,
-                    {
-                        toValue: 24,
-                        duration,
-                    }
-                )]),
+                Animated.timing(opa, {toValue: 0.5, duration}),
+                Animated.timing(tsize, {toValue: 24, duration})]),
             Animated.parallel([
-                Animated.timing(
-                    opa,
-                    {
-                        toValue: 1,
-                        duration,
-                    }
-                ),
-                Animated.timing(
-                    tsize,
-                    {
-                        toValue: 18,
-                        duration,
-                    }
-                ),
+                Animated.timing(opa, {toValue: 1, duration}),
+                Animated.timing(tsize, {toValue: 18, duration,}),
             ])]).start();
         setTimeout(() => this.navigate(deck), 2 * duration)
     };
@@ -149,7 +125,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'stretch',
         justifyContent: 'space-evenly'
-
     },
     deck: {
         backgroundColor: purple,
@@ -175,4 +150,3 @@ function mapStateToProps(decks) {
 export default connect(
     mapStateToProps,
 )(ListDeck);
-

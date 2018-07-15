@@ -31,7 +31,6 @@ export default class ShowCard extends Component {
 
     resetNotification = (nextCardNum, deckLength) => {
         if (nextCardNum === deckLength) {
-            console.log('notification reset');
             clearLocalNotification()
                 .then(setLocalNotification);
         }
@@ -59,7 +58,8 @@ export default class ShowCard extends Component {
     };
 
     backToDeckView = () => {
-        this.props.navigation.navigate('ListDeck');
+        const {deck} = this.props.navigation.state.params;
+        this.props.navigation.navigate('ShowDeck', {deck: deck});
     };
 
     renderScore() {
